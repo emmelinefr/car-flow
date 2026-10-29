@@ -99,7 +99,23 @@ app.patch('/carros/:id', (req, res) => {
 });
 
 
+app.delete('/carros/:id', (req, res) => {
 
+    const id = Number(req.params.id);
+
+    const carroDeletar = carros.findIndex(carro => carro.id === id);
+
+    if (carroDeletar === -1) {
+        return res.status(404)
+            .json({message: "Carro não encontrado."})
+    }
+
+    carros.splice(carroDeletar, 1);
+
+    return res.status(200)
+        .json({message: "Carro excluído com sucesso!"});
+
+});
 
 
 
