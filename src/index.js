@@ -37,7 +37,7 @@ app.post('/carros', (req, res) => {
 
     if (!modelo || !ano) {
         return res.status(400)
-            .json({ message: 'Modelo e ano são obrigatórios!'});
+            .json({ message: "Modelo e ano são obrigatórios!"});
     }
 
     const novoCarro = {
@@ -52,6 +52,53 @@ app.post('/carros', (req, res) => {
         .json(novoCarro);
 
 });
+
+
+app.put('/carros/:id', (req, res) => {
+
+    const id = Number(req.params.id);
+
+    const carroEditar = carros.find(carro => carro.id === id);
+
+    if (!carroEditar) {
+        return res.status(404)
+            .json({message: "Carro não encontrado!"});
+    }
+
+    const {modelo, ano} = req.body;
+
+    if (!modelo || !ano) {
+        return res.status(400)
+            .json({message: "Modelo e ano são obrigatórios!"})
+    }
+
+    Object.assign(carroEditar, {modelo, ano});
+
+    return res.status(200)
+        .json(carroEditar);
+
+});
+
+
+app.patch('/carros/:id', (req, res) => {
+
+    const id = Number(req.params.id);
+
+    const carroEditar = carros.find(carro => carro.id === id);
+
+    if (!carroEditar) {
+        return res.status(404)
+            .json({message: "Carro não encontrado!"});
+    }
+
+    Object.assign(carroEditar, req.body);
+
+    res.status(200)
+        .json(carroEditar);
+
+});
+
+
 
 
 
