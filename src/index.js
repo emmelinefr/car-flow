@@ -31,6 +31,23 @@ app.get('/carros', (req, res) => {
 });
 
 
+app.get('/carros/:id', (req, res) => {
+
+    const id = Number(req.params.id);
+
+    const carro = carros.find(carro => carro.id === id);
+
+    if (!carro) {
+        res.status(404)
+            .json("Carro não encontrado!")
+    }
+
+    return res.status(200)
+        .json(carro);
+
+});
+
+
 app.post('/carros', (req, res) => {
 
     const {modelo, ano} = req.body;
