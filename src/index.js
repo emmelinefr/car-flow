@@ -1,7 +1,7 @@
 import app from "./app.js";
 import conectarBancoDeDados from "./config/database.js";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 
 async function iniciarServidor() {
